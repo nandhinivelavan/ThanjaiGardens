@@ -1,0 +1,236 @@
+<div class="TodoListComponent >">
+
+  <!-- Recent Comments -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <h3>Recent Comments</h3>
+        <p>Latest Comments on users from Material</p>
+      </div>
+      <button class="btn primary">View All</button>
+    </div>
+
+    <div class="comment" *ngFor="let c of comments">
+      <div class="avatar">
+        <img [src]="c.avatar" alt="user">
+      </div>
+
+      <div class="comment-body">
+        <h4>{{c.name}}</h4>
+        <p>{{c.message}}</p>
+        <span class="status">{{comments[0].status}}</span>
+      </div>
+
+      <div class="date">{{c.date}}</div>
+    </div>
+  </div>
+
+  <!-- To Do List -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <h3>To Do list</h3>
+        <p>List of your next task to complete</p>
+      </div>
+      <button class="btn primary">Add Task</button>
+    </div>
+
+    <div class="task" *ngFor="let t of tasks">
+      <input type="checkbox">
+
+      <div class="task-body">
+        <h4>
+          {{t.title}}
+          <span class="badge" [ngClass]="t.tagClass">{{getDayForDate(t.date)}}</span>
+        </h4>
+        <p>{{t.desc}}</p>
+      </div>
+
+      <div class="task-img">
+        <img [src]="t.image" alt="task">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .TodoListComponent {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+
+    justify-content: center;
+    font-family: 'Times New Roman', Times, serif;
+  }
+    .dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  background: #f4f8fb;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 50%;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: medium;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.card-header p {
+  margin: 0;
+  color: #8b8b8b;
+  font-size: 13px;
+}
+
+.btn.primary {
+  background: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 16px;
+  cursor: pointer;
+}
+
+/* Recent Comments */
+.comment {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  font-size: medium;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.avatar img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment-body {
+  flex: 1;
+  margin-left: 12px;
+  font-size: medium;
+}
+
+.comment-body h4 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.comment-body p {
+  margin: 4px 0;
+  color: #666;
+}
+
+.status {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.pending {
+  background: #fff4cc;
+  color: #e6a800;
+}
+
+.approved {
+  background: #e6fff5;
+  color: #00a97f;
+}
+
+.rejected {
+  background: #ffe6eb;
+  color: #ff3b5f;
+}
+
+.date {
+  font-size: 12px;
+  color: #999;
+}
+
+/* To Do List */
+.task {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.task:last-child {
+  border-bottom: none;
+}
+
+.task-body {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.task-body h4 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.task-body p {
+  margin: 4px 0;
+  color: #777;
+}
+
+.badge {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  margin-left: 6px;
+}
+
+.today {
+  background: #e6f0ff;
+  color: #1e90ff;
+}
+
+.yesterday {
+  background: #e6f9f5;
+  color: #00a97f;
+}
+
+.tomorrow {
+  background: #ffe6eb;
+  color: #ff3b5f;
+}
+
+.week {
+  background: #fff4cc;
+  color: #e6a800;
+}
+
+.task-img img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+</style>

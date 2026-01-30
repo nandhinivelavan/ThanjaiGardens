@@ -1,0 +1,242 @@
+<div class="schedule-card">
+  <div class="schedule-header">
+    <h2>Schedule</h2>
+
+    <div class="tabs">
+      <button
+        class="tab"
+        [class.active]="activeTab === 'today'"
+        (click)="showToday()">
+        <span *ngIf="activeTab === 'today'">✔</span> Today
+      </button>
+
+      <button
+        class="tab"
+        [class.active]="activeTab === 'tomorrow'"
+        (click)="showTomorrow()">
+        <span *ngIf="activeTab === 'tomorrow'">✔</span>Tomorrow
+      </button>
+    </div>
+  </div>
+
+  <!-- Today -->
+  <div class="schedule-list" *ngIf="activeTab === 'today'">
+    <ng-container *ngTemplateOutlet="scheduleContent"></ng-container>
+  </div>
+
+  <!-- Tomorrow (same copied content) -->
+  <div class="schedule-list" *ngIf="activeTab === 'tomorrow'">
+    <ng-container *ngTemplateOutlet="scheduleContent2"></ng-container>
+  </div>
+
+  <!-- Common Schedule Content -->
+  <ng-template #scheduleContent>
+    <div class="item">
+      <div>
+        <h4>Group Meeting</h4>
+        <p><img src="/images/clock.png"> in 32 minutes &nbsp; <img src="/images/marker.png"> Conference room 1B</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>Coffee Break</h4>
+        <p><img src="/images/clock.png"> 10:30 AM</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>client call</h4>
+        <p><img src="/images/clock.png"> 11:00 AM</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>Lunch</h4>
+        <p><img src="/images/clock.png"> 12:10 PM</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>administrative tasks</h4>
+        <p><img src="/images/clock.png"> 05:30 PM &nbsp; <img src="/images/marker.png"> Magnolia</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>Review day's work</h4>
+        <p><img src="/images/clock.png"> 07:30 PM &nbsp; <img src="/images/marker.png"> Home</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>samynathan Retirement Party</h4>
+        <p><img src="/images/clock.png"> 09:30 PM &nbsp; <img src="/images/marker.png"> Overseer's room</p>
+      </div>
+      <span>›</span>
+    </div>
+  </ng-template>
+
+  <!-- Common Schedule Content -->
+  <ng-template #scheduleContent2>
+    <div class="item">
+      <div>
+        <h4>virtual team Meeting</h4>
+        <p> <img src="/images/clock.png"> in 32 minutes &nbsp; 
+  <img src="/images/marker.png"> Conference room 5C</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>Coffee Break</h4>
+        <p><img src="/images/clock.png"> 10:30 AM</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>online trainig session</h4>
+        <p><img src="/images/clock.png"> 11:00 AM</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>Lunch</h4>
+        <p><img src="/images/clock.png"> 12:10 PM</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>project review meeting</h4>
+        <p><img src="/images/clock.png"> 05:30 PM &nbsp; <img src="/images/marker.png"> chennai</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>team standup meeting</h4>
+        <p><img src="/images/clock.png"> 07:30 PM &nbsp; <img src="/images/marker.png"> Home</p>
+      </div>
+      <span>›</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <h4>task updates and emails</h4>
+        <p><img src="/images/clock.png"> 09:30 PM &nbsp; <img src="/images/marker.png"> Overseer's room</p>
+      </div>
+      <span>›</span>
+    </div>
+  </ng-template>
+</div>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.schedule-card {
+  width: 420px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  
+  
+}
+.icon {
+  width: 8px;      
+  height: 8px;
+  object-fit: contain;
+  margin-right: 6px;
+}
+
+
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+    ;
+}
+
+.schedule-header h2 {
+  color: #1e2a3a;
+  
+}
+
+.tabs {
+  background: #eef2f6;
+  border-radius: 30px;
+  padding: 2px;
+  display: flex;
+}
+
+.tab {
+  border: none;
+  background: transparent;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #6b778c;
+}
+
+.tab.active {
+  background: #dde4ec;
+  color: #000;
+  font-weight: bold;
+}
+
+.schedule-list {
+  margin-top: 15px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #e5e9ef;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item h4 {
+  font-size: 15px;
+  color: #1e2a3a;
+  margin-bottom: 5px;
+}
+
+.item p {
+  font-size: 13px;
+  color: #7a8a9e;
+}
+
+.item span {
+  font-size: 22px;
+  color: #9aa7b8;
+}
+</style>
