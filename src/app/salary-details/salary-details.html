@@ -1,0 +1,158 @@
+<div class="table">
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Balance</th>
+        <th>Company</th>
+        <th>Status</th>
+        <th class="action-col">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.age }}</td>
+        <td>{{ user.balance }}</td>
+        <td>{{ user.company }}</td>
+        <td>
+          <button
+            class="status"
+            [ngClass]="{
+              'active': user.status === 'active',
+              'inactive': user.status === 'inactive'
+            }">
+            {{ user.status }}
+        </button>
+        </td>
+        <td class="action-col">
+          <button class="icon-btn edit">
+            ✏️
+          </button>
+          <button class="icon-btn delete">
+            🗑️
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="table-footer">
+    <div>
+      Items per page:
+      <select>
+        <option>10</option>
+        <option>20</option>
+        <option>50</option>
+      </select>
+    </div>
+
+    <div class="pagination">
+      <span>1 – 10 of 68</span>
+      <button>&lt;</button>
+      <button>&gt;</button>
+    </div>
+  </div>
+</div>
+
+
+<style>
+.table {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.user-table th {
+  text-align: left;
+  padding: 14px;
+  font-size: 14px;
+  color: #555;
+  border-bottom: 1px solid #eee;
+}
+
+.user-table td {
+  padding: 14px;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+
+.action-col {
+  text-align: center;
+  width: 120px;
+}
+
+/* Status pill */
+.status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-transform: lowercase;
+}
+
+.status.active {
+  background: #e0e0e0;
+  color: #000;
+}
+
+.status.inactive {
+  background: #e0e0e0;
+  color: #000;
+}
+
+/* Action buttons */
+.icon-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 6px;
+}
+
+.icon-btn.edit {
+  color: #1a237e;
+}
+
+.icon-btn.delete {
+  color: #e53935;
+}
+
+/* Footer */
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  font-size: 13px;
+  color: #555;
+}
+
+.table-footer select {
+  margin-left: 6px;
+  padding: 4px;
+}
+
+.pagination button {
+  border: none;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 6px;
+}
+.pagination span {
+  margin-right: 12px;
+}
+</style>
