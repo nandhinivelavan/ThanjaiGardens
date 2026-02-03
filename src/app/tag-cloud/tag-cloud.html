@@ -1,0 +1,196 @@
+<div class="tag-cloud-container">
+
+  <!-- Header -->
+  <div class="header">
+    <h2>Tag Cloud</h2>
+
+    <div class="headerActions">
+            <input type="text" placeholder="Search tags..." [(ngModel)]="searchText" />
+    
+            <div class="sortSection">
+    
+                <button class="sort-btn" (click)="toggleSort()">
+                  <img src="images/arrow.png"/>  Sort by
+                </button>
+                <span *ngIf="toggle_sort" class="dropDown">
+                    <span class="menuItem"><img *ngIf="toggle_sort" src="images/rightArrow.png"/><button class = "menuButton" (click) = "toggleSort_tagName()">Ascending</button></span>
+                    <span class="menuItem"><img *ngIf="!toggle_sort" src="images/rightArrow.png"/><button class = "menuButton" (click) = "toggleSort_tagName()">Descending</button></span>
+                    <hr/>
+                    <span class="menuItem"><img *ngIf="sortAsc_tagName" src="images/rightArrow.png"/><button class = "menuButton" (click) = "sortByTagName()">Name</button></span>
+                    <span class="menuItem"><img *ngIf="sortAsc_bookmarks" src="images/rightArrow.png"/><button class = "menuButton" (click) = "sortByBookmarks()">Bookmarks</button></span>
+                    <span class="menuItem"><img *ngIf="sortAsc_description " src="images/rightArrow.png"/><button class = "menuButton" (click) = "sortByDescription()">Description</button></span>
+                </span>
+            </div>
+    
+    </div>
+    </div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead class="th-main">
+      <tr class="tr">
+        <th (click) = "sortByTagName()">Tag Name<img *ngIf="sortAsc_tagName" src="images/arrow.png"/><img *ngIf="!sortAsc_tagName" src="images/downArrow.png"/></th>
+        <th>Bookmarks</th>
+        <th>Description</th>
+        <th>Related Tags</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let tag of filteredTags">
+        <td>{{ tag.name }}</td>
+        <td>{{ tag.bookmarks }}</td>
+        <td>{{ tag.description }}</td>
+        <td>
+          <span class="tag" *ngFor="let r of tag.related">
+            {{ r }}
+          </span>
+        </td>
+        <td class="actions">
+          <img src="/images/pencil.png" alt="Edit" (click)="editTag(tag)" />
+          <img src="/images/bin.png" alt="Delete" (click)="deleteTag(tag)" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+<style>
+.tag-cloud-container {
+  padding: 20px;
+  font-family:'Times New Roman', Times, serif;
+  max-width: 100%;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+    font-weight: bold;
+
+}
+.headerActions {
+  display: flex;
+  gap: 10px;
+  width: 30%;
+}
+.sort-btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  width: 120px;
+}
+.sort-btn:hover {
+  background: #0056b3;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  height: 500px;
+}
+.th-main {
+  border: 1px solid #ddd;
+  padding: 8px;
+  height: 40px;
+}
+.th-main th {
+  text-align: center;
+  align-items: center;
+  background-color: #f2f2f2;
+  font-weight: bold;
+  padding: 10px;
+  width:40px
+}
+
+.table:nth-child(odd) {
+  background-color: #ffba79;
+}
+
+tr {
+    border: 1px solid #ddd;
+    padding: 5px;
+    width: auto;
+    align-items: center;
+    text-align: center;
+
+}
+tr td {
+        padding-left: 15px;
+        padding-right: 15px;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+img {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    padding-left:20px;
+}
+
+.dropDown {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #ccc;
+    position: absolute;
+    margin-top: 5px;
+    padding: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropDown span {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.dropDown span:hover {
+    background-color: #f1f1f1;
+}
+.sortSection {
+    position: relative;
+}
+
+.dropDown hr {
+    margin: 5px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+.dropDown span {
+    font-size: medium;
+}
+
+.menuButton {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.menuItem img {
+    width: 12px;
+    height: 12px;
+    padding-left: 0px;
+    margin-right: 0px;
+}
+</style>
