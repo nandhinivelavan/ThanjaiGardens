@@ -1,0 +1,237 @@
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <h1><img src="/images/personalinfo/message.png" alt="Personal Info"/>
+        <div>Met someone new?</div></h1>
+         
+      <p>Quickly add them to your client list and send a personalised message</p>
+    </div>
+  </div>
+
+  <!-- Form Card -->
+  <div class="form-card">
+
+    <div class="input-row">
+      <label>CLIENT NAME</label>
+      <input type="text" placeholder="Thanigaivelan" [(ngModel)]="clientName">
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="input-row">
+      <label>MOBILE NUMBER</label>
+      <div class="phone">
+        <select [(ngModel)]="countryCode">
+          <option value="+91">+91</option>
+          <option value="+1">+1</option>
+          <option value="+44">+44</option>
+        </select>
+        <input type="text" placeholder="e.g. 1234 5678" [(ngModel)]="mobileNumber">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Add Contacts -->
+  <h4 class="section-title">ADD YOUR CONTACTS</h4>
+
+  <div class="contact-grid">
+    <div class="contact-box">
+      <div class="cicon">
+        <img src="/images/personalinfo/adduser.png" alt="Add Contact"/>
+      </div>
+      <span>Enter a New Contact</span>
+    </div>
+
+    <div class="contact-box">
+      <div class="cicon">
+        <img src="/images/personalinfo/contact.png" alt="Phonebook"/>
+      </div>
+      <span>Import from Phonebook</span>
+    </div>
+
+    <div class="contact-box">
+      <div class="cicon">
+        <img src="/images/personalinfo/spreadsheet.png" alt="Spreadsheet"/>
+      </div>
+      <span>Import from Spreadsheet</span>
+    </div>
+  </div>
+
+  <!-- Lead Sources -->
+  <div class="lead-section">
+    <h4>CONNECT YOUR LEAD SOURCES</h4>
+    <p>Get instant lead alerts from your website, ads, contact forms, and other sources</p>
+
+    <div class="lead-item" *ngFor="let item of leadSources">
+        <img [src]="leadsourcesImages[item]" alt="{{item}}">
+      <span>{{item}}</span>
+        
+      <span class="arrow">›</span>
+    </div>
+  </div>
+
+</div>
+
+
+<style>
+    .page{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f3f5f7;
+  min-height:500px;
+  max-width:100%;
+  height: 50%
+}
+
+/* HEADER */
+.header{
+  background: linear-gradient(135deg,#6bb6d6,#b34ad8);
+  color:white;
+  padding:10px 20px 20px;
+  display: block;
+}
+
+.header-content{
+  max-width:100%; 
+
+}
+
+.header h1{
+  font-size:25px;
+  font-weight:500;
+    display: flex;
+
+}
+.header h1 div {
+    padding-left: 20px;;
+}
+.header p{
+  opacity:0.9;
+}
+
+
+
+
+/* FORM CARD */
+.form-card{
+  background:white;
+  margin: -20px 20px 20px;
+  padding:18px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+.input-row{
+  display:flex;
+  flex-direction:column;
+}
+
+.input-row label{
+  font-size:11px;
+  font-weight:600;
+  color:#444;
+  margin-bottom:6px;
+}
+
+.input-row input{
+  border:none;
+  outline:none;
+  font-size:11px;
+  padding:6px 0;
+}
+
+.phone{
+  display:flex;
+  gap:6px;
+}
+
+.phone select{
+  border:none;
+  font-size:12px;
+  background:transparent;
+}
+
+.divider{
+  height:1px;
+  background:#ddd;
+  margin:14px 0;
+}
+
+/* CONTACT GRID */
+.section-title{
+  margin:10px;
+  font-weight:600;
+  color:#444;
+}
+
+.contact-grid{
+  display:flex;
+  gap:8px;
+  padding:0 8px;
+  
+}
+img {
+  width: 25px;
+  height: 25px;
+}
+.contact-box{
+  flex:1;
+  background:white;
+  border-radius:9px;
+  padding:14px 7px;
+  text-align:center;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.contact-box:hover{
+  transform:translateY(-4px);
+}
+
+.cicon{
+  font-size:17px;
+  margin-bottom:6px;
+}
+
+/* LEAD SOURCES */
+.lead-section{
+
+
+}
+
+.lead-section h3{
+
+}
+
+.lead-section p{
+  color:#666;
+  font-size:11px;
+}
+
+.lead-item{
+  background:white;
+  border-radius:7px;
+  padding:8px 4px;
+  margin-top:9px;
+  display:flex;
+  align-items:center;
+  box-shadow:0 3px 8px rgba(0,0,0,0.08);
+  cursor:pointer;
+justify-content: space-between;
+
+}
+
+.lead-item span {
+    padding-left: 15px;
+}
+.arrow{
+  font-size:14px;
+  font-weight: 600;
+  color:#888;
+  margin-left: auto;
+
+}
+
+</style>
