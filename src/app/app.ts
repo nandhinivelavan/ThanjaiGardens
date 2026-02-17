@@ -6,13 +6,15 @@ import { SalaryDetails } from "./salary-details/salary-details";
 import { TagCloudComponent } from "./tag-cloud/tag-cloud";
 import { Personalinfo } from "./personalinfo/personalinfo";  
 import { FormsModule } from '@angular/forms';
-
+import { Privyrlead } from "./privyrlead/privyrlead";
+// import { PrivyrleadComponent } from "./privyrlead/privyrlead";
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
-  imports: [ Personalinfo,FormsModule],
+  imports: [FormsModule, MatIconModule , Privyrlead],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
   protected readonly title = signal('ThanjaiGardens');
