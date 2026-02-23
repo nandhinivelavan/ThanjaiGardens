@@ -1,0 +1,241 @@
+<div class="container">
+
+  <!-- Search & Filter -->
+  <div class="top-bar">
+    <input type="text"
+           placeholder="Search clients & phone..."
+           [(ngModel)]="searchText" />
+
+    <button class="filter-btn">Filter</button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <span [class.active]="activeTab === 'all'" (click)="setTab('all')">
+      All Clients
+    </span>
+    <span [class.active]="activeTab === 'team'" (click)="setTab('team')">
+      Team
+    </span>
+    <span [class.active]="activeTab === 'groups'" (click)="setTab('groups')">
+      Groups
+    </span>
+  </div>
+
+  <!-- ALL CLIENTS -->
+  <div *ngIf="activeTab === 'all'">
+
+    <div *ngIf="filteredClients.length === 0" class="empty">
+      <h3>Welcome to your Client List</h3>
+      <p>Add or import contacts using the (+) button.</p>
+    </div>
+
+    <div *ngFor="let client of filteredClients" class="client-card">
+      <div class="avatar">
+        {{ client.name.charAt(0) }}
+      </div>
+      <div class="details">
+        <h4>{{ client.name }}</h4>
+        <p>{{ client.description }}</p>
+        <small>Added {{ client.addedDate | date:'short' }}</small>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TEAM -->
+  <div *ngIf="activeTab === 'team'" class="empty">
+    <h3>Welcome to your Team</h3>
+    <p>Invite teammates to assign leads and coordinate clients.</p>
+    <button class="invite-btn">INVITE TEAM</button>
+  </div>
+
+  <!-- GROUPS -->
+  <div *ngIf="activeTab === 'groups'">
+    <div class="group-item">
+      <span>Uncontacted Leads</span>
+      <span>{{ clients.length }}</span>
+    </div>
+
+    <div class="group-item">
+      <span>By Lead Source</span>
+      <span>0</span>
+    </div>
+
+    <div class="group-item">
+      <span>Recently Viewed Content</span>
+      <span>0</span>
+    </div>
+
+    <div class="empty">
+      <h3>Welcome to your Groups</h3>
+      <p>Use groups to manage and organize clients.</p>
+    </div>
+  </div>
+
+  <!-- Floating Add Button -->
+  <button class="fab" (click)="addClient()">+</button>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <span>Home</span>
+    <span>Capture</span>
+    <span class="active-nav">Clients</span>
+    <span>Actions</span>
+    <span>Content</span>
+    <span>Account</span>
+  </div>
+
+</div>
+<style>
+    .container {
+  max-width: 400px;
+  margin: auto;
+  background: #f5f6f7;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 80px;
+  font-family: Arial, sans-serif;
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+}
+
+.top-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  background: #eee;
+}
+
+.filter-btn {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  background: #e0e0e0;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabs span {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.tabs .active {
+  border-bottom: 3px solid black;
+  font-weight: bold;
+}
+
+/* Client Card */
+.client-card {
+  display: flex;
+  padding: 15px;
+  background: white;
+  margin: 10px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(45deg, #6dd5ed, #2193b0);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.details {
+  margin-left: 15px;
+}
+
+.details h4 {
+  margin: 0;
+}
+
+.details p {
+  margin: 3px 0;
+  color: gray;
+}
+
+/* Empty State */
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: gray;
+}
+
+.invite-btn {
+  padding: 10px 20px;
+  border: none;
+  background: teal;
+  color: white;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+/* Groups */
+.group-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: white;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+/* FAB */
+.fab {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: teal;
+  color: white;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+}
+
+.bottom-nav span {
+  font-size: 12px;
+  color: gray;
+}
+
+.active-nav {
+  color: teal;
+  font-weight: bold;
+}
+
+</style>

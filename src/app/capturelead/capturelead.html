@@ -1,0 +1,240 @@
+<div class="container">
+
+<div class="capture-section">
+
+  <h2>Capture New Lead</h2>
+
+  <form class="form">
+
+    <!-- NAME -->
+    <input type="text"
+           placeholder="Client Name *"
+           [(ngModel)]="lead.name"
+           name="name"
+           #name="ngModel"
+           required
+           [class.invalid]="name.invalid && name.touched">
+
+    <small class="error"
+           *ngIf="name.invalid && name.touched">
+      Name is required
+    </small>
+
+
+    <!-- PHONE -->
+    <input type="text"
+           placeholder="Phone Number *"
+           [(ngModel)]="lead.phone"
+           name="phone"
+           #phone="ngModel"
+           required
+           pattern="^[0-9]{10}$"
+           maxlength="10"
+           [class.invalid]="phone.invalid && phone.touched">
+
+    <small class="error"
+           *ngIf="phone.errors?.['required'] && phone.touched">
+      Phone number is required
+    </small>
+
+    <small class="error"
+           *ngIf="phone.errors?.['pattern'] && phone.touched">
+      Phone must be exactly 10 digits
+    </small>
+
+
+    <!-- EMAIL -->
+    <input type="email"
+           placeholder="Email Address"
+           [(ngModel)]="lead.email"
+           name="email"
+           #email="ngModel"
+           pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
+           [class.invalid]="email.invalid && email.touched">
+
+    <small class="error"
+           *ngIf="email.errors?.['pattern'] && email.touched">
+      Enter a valid email address
+    </small>
+
+
+    <!-- SAVE BUTTON -->
+    <button type="button"
+            (click)="submitLead()"
+            [disabled]="!isFormValid"
+            [class.disabled-btn]="!isFormValid">
+      Save Lead
+    </button>
+
+  </form>
+
+</div>
+
+
+</div>
+
+
+    <!-- Display Saved Leads -->
+    <div class="lead-list" *ngIf="leadsList.length > 0">
+      <h3>Saved Leads</h3>
+      <div class="lead-card" *ngFor="let l of leadsList">
+        <p><strong>Name:</strong> {{l.name}}</p>
+        <p><strong>Phone:</strong> {{l.phone}}</p>
+        <p><strong>Email:</strong> {{l.email}}</p>
+      </div>
+    </div>
+
+
+
+
+  <!-- ================= BOTTOM NAV ================= -->
+  
+
+
+<style>
+    .capture-section {
+  padding: 20px 10px 80px 10px;
+}
+
+.capture-section h2 {
+  margin-bottom: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.form button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #00bfa5;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background-color: #009e8e;
+}
+
+.lead-list {
+  margin-top: 20px;
+}
+
+.lead-card {
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.form button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #00bfa5;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form button:hover {
+  background-color: #009e8e;
+}
+
+.disabled-btn {
+  background-color: #cccccc !important;
+  cursor: not-allowed;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: -5px;
+}
+.capture-section {
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.capture-section h2 {
+  margin-bottom: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.form input:focus {
+  outline: none;
+  border-color: #00bfa5;
+}
+
+.invalid {
+  border: 1px solid red !important;
+  background-color: #fff5f5;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: -5px;
+}
+
+.form button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #00bfa5;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form button:hover {
+  background-color: #009e8e;
+}
+
+.disabled-btn {
+  background-color: #cccccc !important;
+  cursor: not-allowed;
+}
+
+
+</style>

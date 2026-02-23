@@ -1,7 +1,7 @@
 <div class="page">
 
   <!-- ===== Onboarding Card ===== -->
-  <div class="card">
+  <div *ngIf="activeTab === 'summary'" class="card">
     <div class="card-header">
       <span class="icon"><img src="/images/privyr/graduation.png"></span>
       <h3>GET STARTED WITH PRIVYR</h3>
@@ -18,7 +18,7 @@
 
 
   <!-- ===== Leads Summary ===== -->
-  <div class="summary">
+  <div *ngIf="activeTab === 'summary'" >
 
     <div class="summary-header">
       Past 7 days ▼ <span *ngIf="toggle" class="dropDown"></span>
@@ -46,7 +46,15 @@
 
   </div>
 
-
+  <div *ngIf="activeTab === 'capture'">
+    <app-capturelead></app-capturelead>
+  </div>
+<div *ngIf="activeTab === 'clients'">
+    <app-clientinfo></app-clientinfo>
+    </div>  
+<div *ngIf="activeTab === 'actions'">
+    <app-actioninfo></app-actioninfo>
+    </div>
   <!-- ===== Bottom Navigation ===== -->
   <div class="bottom-nav">
     <div class="nav active"><img src="\images\privyr\home.png"><span>Home</span></div>
@@ -55,6 +63,48 @@
     <div class="nav"><img src="\images\privyr\actions.png"><span>Actions</span></div>
     <div class="nav"><img src="\images\privyr\content.png"><span>Content</span></div>
     <div class="nav"><img src="\images\privyr\account.png"><span>Account</span></div>
+  </div>
+
+  <div class="bottom-nav">
+
+    <div class="nav"
+         [class.active]="activeTab === 'home'"
+         (click)="setTab('home')">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </div>
+
+    <div class="nav"
+         [class.active]="activeTab === 'capture'"
+         (click)="setTab('capture')">
+      <mat-icon>add_circle_outline</mat-icon>
+      <span>Capture</span>
+    </div>
+
+    <div class="nav"
+         [class.active]="activeTab === 'clients'"
+         (click)="setTab('clients')">
+      <mat-icon>groups</mat-icon>
+      <span>Clients</span>
+    </div>
+
+    <div class="nav"
+        [class.active]="activeTab === 'actions'"
+          (click)="setTab('actions')">
+      <mat-icon>checklist</mat-icon>
+      <span>Actions</span>
+    </div>
+
+    <div class="nav">
+      <mat-icon>description</mat-icon>
+      <span>Content</span>
+    </div>
+
+    <div class="nav">
+      <mat-icon>settings</mat-icon>
+      <span>Account</span>
+    </div>
+
   </div>
 
 </div>

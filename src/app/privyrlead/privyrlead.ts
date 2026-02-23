@@ -1,15 +1,30 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
+
+import { Clientinfo } from "../clientinfo/clientinfo";
+import { Actioninfo } from "../actioninfo/actioninfo";  
+import { Capturelead } from '../capturelead/capturelead';
 import { MatIcon } from "@angular/material/icon";
+
+
+interface Task {
+  title: string;
+  done: boolean;
+}
 @Component({
   selector: 'app-privyrlead',
-  imports: [CommonModule, FormsModule, NgFor, MatIcon],
+  imports: [CommonModule, FormsModule, NgFor, MatIcon, Capturelead, Clientinfo, Actioninfo],
   templateUrl: './privyrlead.html',
   styleUrl: './privyrlead.css',
 })
 export class Privyrlead {
+activeTab: any = 'summary';
+  setTab(tab: string) {
+    this.activeTab = tab;
+  }
 
   tasks: Task[] = [
     { title: 'CONNECT FACEBOOK LEAD ADS', done: false },
@@ -30,10 +45,7 @@ export class Privyrlead {
 }
 
 
-interface Task {
-  title: string;
-  done: boolean;
-}
+
 
 
 

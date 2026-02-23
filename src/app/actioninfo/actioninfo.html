@@ -1,0 +1,144 @@
+<!-- ================= ACTIONS CONTENT ================= -->
+ <div class="actions-section">
+
+
+  <h2>Actions</h2>
+
+  <!-- Add Action -->
+  <div class="action-input">
+    <input type="text"
+           placeholder="Add new action..."
+           [(ngModel)]="actionText">
+    <button (click)="addAction()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="filters">
+    <button (click)="filterType='all'"
+            [class.active]="filterType==='all'">All</button>
+    <button (click)="filterType='pending'"
+            [class.active]="filterType==='pending'">Pending</button>
+    <button (click)="filterType='completed'"
+            [class.active]="filterType==='completed'">Completed</button>
+  </div>
+
+  <!-- Action List -->
+  <div *ngIf="filteredActions.length === 0" class="empty">
+    No Actions Available
+  </div>
+
+  <div class="action-card"
+       *ngFor="let action of filteredActions; let i = index">
+
+    <div class="action-left">
+      <input type="checkbox"
+             [(ngModel)]="action.completed"
+             (change)="toggleAction(action)">
+      <div>
+        <p [class.completed]="action.completed">
+          {{action.title}}
+        </p>
+        <small>{{action.date | date:'short'}}</small>
+      </div>
+    </div>
+
+    <button (click)="deleteAction(i)" class="delete-btn">
+      <mat-icon>delete</mat-icon>
+    </button>
+
+  </div>
+  </div>
+
+
+<style>
+    .actions-section {
+  padding: 20px 10px 80px 10px;
+}
+
+.actions-section h2 {
+  margin-bottom: 15px;
+}
+
+.action-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.action-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.action-input button {
+  background: #00bfa5;
+  border: none;
+  color: white;
+  padding: 0 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.filters button {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.filters button.active {
+  background: #00bfa5;
+  color: white;
+  border: none;
+}
+
+.action-card {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-left {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.action-left p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.action-left p.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+}
+.delete-btn mat-icon {
+  font-size: 20px;
+}
+
+</style>

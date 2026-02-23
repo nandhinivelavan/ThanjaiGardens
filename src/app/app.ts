@@ -9,10 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { Privyrlead } from "./privyrlead/privyrlead";
 // import { PrivyrleadComponent } from "./privyrlead/privyrlead";
 import { MatIconModule } from '@angular/material/icon';
+import { Capturelead } from "./capturelead/capturelead";
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, MatIconModule , Privyrlead],
+  imports: [FormsModule, MatIconModule, Privyrlead],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
@@ -21,7 +22,7 @@ export class App {
 }
 
 
-export class AppModule { }
+
 
 
 

@@ -1,0 +1,692 @@
+<!-- ALL CLIENTS -->
+<div class="container">
+
+  <!-- Top Search -->
+  <div class="top-bar">
+    <input type="text" placeholder="Search clients & phone..." [(ngModel)]="searchText" />
+   <!-- Filter Panel -->
+<div class="filter-panel" *ngIf="showFilter && activeTab === 'all'">
+
+  <h5>Filter Options</h5>
+
+  <!-- Sort -->
+  <label>Sort By:</label>
+  <select [(ngModel)]="sortOption">
+    <option value="newest">Newest First</option>
+    <option value="oldest">Oldest First</option>
+  </select>
+
+  <!-- Days Filter -->
+  <label>Show clients added within (days):</label>
+  <input type="number" [(ngModel)]="maxDaysFilter" placeholder="Enter days" />
+
+  <div class="filter-actions">
+    <button (click)="applyFilter()">Apply</button>
+    <button class="reset" (click)="resetFilter()">Reset</button>
+  </div>
+
+</div>
+
+    <button class="filter-btn">
+     <div (click)="toggleFilter()"> 
+      <img src="/images/privyr/filter.png">
+      <span class="filter-text">Filter</span>
+     </div>
+    </button>
+
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <span [class.active]="activeTab==='all'" (click)="setTab('all')">All Clients</span>
+
+    <span [class.active]="activeTab==='team'" (click)="setTab('team')">Team</span>
+
+    <span [class.active]="activeTab==='groups'" (click)="setTab('groups')">Groups</span>
+  </div>
+
+  <!-- ALL CLIENTS -->
+  <div *ngIf="activeTab==='all'">
+<!-- Gradient Card -->
+<div class="gradient-card">
+  <div class="gradient-card-top">
+    <span class="getStarted"> <img src="/images/privyr/graduation.png">GET STARTED: 9 Steps Left</span>
+    <span class="right-icon"> ></span>
+  </div>
+  <div class="progress-bar"></div>
+</div>
+
+    <!-- Sorting -->
+    <div class="sorting">
+      Sorting by date added (newest first) ▼
+    </div>
+
+    <!-- Client Card -->
+    <div class="client-card" *ngFor="let client of filteredClients">
+
+      <div class="avatar">PS</div>
+
+      <div class="client-info">
+        <h4>{{client.name}}</h4>
+        <p>{{client.description}}</p>
+        <small>👥 Added {{client.addedDaysAgo}} days ago</small>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state">
+      <div class="icon"><img src="/images/privyr/client.png" alt="Client Icon"></div>
+      <h3>Welcome to your Client List</h3>
+      <p>
+        Add or import contacts from phonebook via the search bar or (+) button.
+      </p>
+      <p>
+        You can also connect lead sources like Facebook ads, Google Forms,
+        and your website.
+      </p>
+
+
+    </div>
+
+  </div>
+
+  <!-- Floating Button -->
+  <button class="fab" (click)="addClient()">+</button>
+
+
+
+<!-- TEAM -->
+<div *ngIf="activeTab === 'team'" class="empty">
+  <h3>Welcome to your Team</h3>
+  <p>Invite teammates to assign leads ,share content and coordinate clients.</p>
+
+  <button class="invite-btn">INVITE TEAM</button>
+
+  <div class="learn-more">
+    <a (click)="learnMore('team')">LEARN MORE</a>
+  </div>
+</div>
+
+
+<!-- GROUPS -->
+<div *ngIf="activeTab === 'groups'">
+  <div class="group-item">
+    <span>Uncontacted Leads</span>
+    <span>{{ clients.length }}</span>
+  </div>
+
+  <div class="group-item">
+    <span>By Lead Source</span>
+    <span>0</span>
+  </div>
+
+  <div class="group-item">
+    <span>Recently Viewed Content</span>
+    <span>0</span>
+  </div>
+
+  <div class="empty">
+    <h3>Welcome to your Groups</h3>
+    <p>Use groups to manage and organize clients.</p>
+  </div>
+  <div class="learn-more">
+    <a (click)="learnMore('groups')">LEARN MORE</a>
+  </div>
+
+</div>
+
+<!-- Floating Add Button -->
+<button class="fab" (click)="addClient()">+</button>
+
+<!-- Dark Overlay -->
+<div class="overlay" *ngIf="isFabOpen" (click)="closeFab()"></div>
+
+<!-- Floating Action Button Menu -->
+<div class="fab-container">
+
+  <!-- Action Buttons -->
+  <div class="fab-options" [class.show]="isFabOpen">
+
+    <div class="fab-item">
+      <span>Quick Add & Send Message</span>
+      <button class="mini-fab" (click)="quickAdd()">
+        <img src="/images/privyr/addmessage.png" alt="Add Message Icon">
+      </button>
+    </div>
+
+    <div class="fab-item">
+      <span>Enter a New Contact</span>
+      <button class="mini-fab" (click)="newContact()">
+        <img src="/images/personalinfo/contact.png" alt="Contact Icon">
+      </button>
+    </div>
+
+    <div class="fab-item">
+      <span>Import from Phonebook</span>
+      <button class="mini-fab" (click)="importPhonebook()">
+        <img src="/images/privyr/phonebook.png" alt="Phonebook Icon">
+      </button>
+    </div>
+
+    <div class="fab-item">
+      <span>More Import Options</span>
+      <button class="mini-fab" (click)="moreOptions()">
+        <img src="/images/privyr/moreoption.png" alt="More Options Icon">
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Main FAB -->
+  <button class="main-fab" [class.rotate]="isFabOpen" (click)="toggleFab()">
+    +
+  </button>
+
+</div>
+
+
+<style>
+
+  .container {
+  background: #f5f6f7;
+  position: flex;
+  padding-bottom: 80px;
+  font-family: Arial, sans-serif;
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+}
+
+.top-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  background: #eee;
+}
+
+.filter-btn {
+  border-radius: 10px;
+  border: none;
+  background: #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-height: 25px;;
+}
+.filter-btn img {
+  width: 18px;
+  height: 18px;
+}
+.filter-btn div {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.filter-text {
+  margin-right: 0px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabs span {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.tabs .active {
+  border-bottom: 3px solid black;
+  font-weight: bold;
+}
+
+/* Client Card */
+.client-card {
+  display: flex;
+  padding: 15px;
+  background: white;
+  margin: 10px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(45deg, #6dd5ed, #2193b0);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.details {
+  margin-left: 15px;
+}
+
+.details h4 {
+  margin: 0;
+}
+
+.details p {
+  margin: 3px 0;
+  color: gray;
+}
+
+/* Empty State */
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: gray;
+}
+
+.invite-btn {
+  padding: 10px 20px;
+  border: none;
+  background: teal;
+  color: white;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+/* Groups */
+.group-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: white;
+  margin: 10px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+/* FAB */
+.fab {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: teal;
+  color: white;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+}
+
+.bottom-nav span {
+  font-size: 12px;
+  color: gray;
+}
+
+.active-nav {
+  color: teal;
+  font-weight: bold;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+/* FAB Container */
+.fab-container {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  z-index: 20;
+}
+
+/* Main FAB */
+.main-fab {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: none;
+  background: teal;
+  color: white;
+  font-size: 32px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.main-fab.rotate {
+  transform: rotate(45deg);
+}
+
+/* FAB Options */
+.fab-options {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.3s ease;
+  pointer-events: none;
+}
+
+.fab-options.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  width: 200px
+}
+
+/* Each Item */
+.fab-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+  gap: 15px;
+}
+
+.fab-item span {
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Mini FAB */
+.mini-fab {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  font-size: 20px;
+  cursor: pointer;
+  color: teal;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: 0.3s;
+}
+
+.mini-fab:hover {
+  transform: scale(1.1);
+}
+.learn-more {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.learn-more a {
+  color: teal;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.learn-more a:hover {
+  text-decoration: underline;
+}
+.container {
+  max-width: 400px;
+  margin: auto;
+  background: #f5f6f7;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  padding-bottom: 80px;
+}
+
+/* Top bar */
+.top-bar {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+}
+
+.top-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  background: #eee;
+  max-height: fit-content;
+}
+
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.tabs span {
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.tabs .active {
+  border-bottom: 3px solid black;
+  font-weight: bold;
+}
+
+/* Gradient Card */
+.gradient-card {
+  margin: 8px;
+  padding: 8px;
+  display: block;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: medium;
+  background: linear-gradient(90deg, #6dd5ed, #b06ab3);
+}
+.gradient-card-top {
+  display: flex;
+  justify-content: space-between;
+}
+.right-icon {
+  font-size: 16px;
+  margin-top: 5px;
+  margin-right: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 5px;
+}
+img {
+  width: 40px;
+  height: 40px;
+}
+/* Sorting */
+.sorting {
+  padding: 10px 15px;
+  color: #444;
+  font-weight: 600;
+
+}
+
+/* Client Card */
+.client-card {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  background: white;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.avatar {
+  width: 55px;
+  height: 55px;
+  background: #6dd5ed;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.client-info h4 {
+  margin: 0;
+}
+
+.client-info p {
+  margin: 5px 0;
+  color: gray;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 30px 20px;
+  color: #555;
+}
+
+.empty-state .icon {
+  font-size: 30px;
+  color: teal;
+}
+
+.empty-state h3 {
+  font-weight:800;
+  color: #555;
+}
+.empty-state p {
+  font-weight: 600;
+  color: #555;
+}
+
+.empty h3 {
+  font-weight:800;
+  color: black;
+}
+.empty p {
+  font-weight: 600;
+  color: black;
+}
+
+.learn-more {
+  color: teal;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+/* FAB */
+.fab {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: none;
+  background: teal;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+  font-size: 12px;
+}
+
+.active-nav {
+  color: teal;
+  font-weight: bold;
+}
+/* Filter Panel */
+.filter-panel {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-height: 200px;
+  max-width: 200px;
+  font-size: 14px;
+  margin-top: 0%;
+}
+
+.filter-panel h5 {
+  margin-top: 0;
+  margin-bottom: 0%;
+}
+
+.filter-panel label {
+  display: block;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: 0%
+}
+
+.filter-panel select,
+.filter-panel input {
+  width: 80%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 10px;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: space-between;
+ font-size: 10px;
+ margin-top: 5px;
+}
+
+.filter-actions button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  background: teal;
+  color: white;
+  cursor: pointer;
+}
+
+.filter-actions .reset {
+  background: gray;
+}
+
+</style>
