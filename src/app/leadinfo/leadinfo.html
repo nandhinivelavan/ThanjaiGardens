@@ -1,0 +1,581 @@
+<div class="lead-card">
+
+  <!-- TOP SECTION -->
+  <div class="top-section">
+
+    <div class="profile-row">
+      <div class="avatar">
+        {{ getInitials(currentLead.name) }}
+        <span class="online-dot" *ngIf="currentLead.isOnline"></span>
+      </div>
+
+      <div class="lead-info">
+        <div class="name-row">
+          <h2>{{ currentLead.name }}</h2>
+          <span class="status-badge" [ngClass]="currentLead.status.toLowerCase()">
+            {{ currentLead.status }}
+          </span>
+        </div>
+        <p class="lead-id">Lead ID: {{ currentLead.id }}</p>
+      </div>
+
+      <div class="actions">
+        <button (click)="toggleFavorite()">
+          <mat-icon>{{ currentLead.isFavorite ? 'star' : 'star_border' }}</mat-icon>
+        </button>
+        <button>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Contact Box -->
+    <div class="contact-box">
+      <div class="mobile">
+       <!-- <mat-icon>call</mat-icon>-->
+         <img src="images/privyr/leadinfo/phone.png"/>
+        
+        <span>{{ currentLead.mobile }}</span>
+      </div>
+
+      <div class="contact-actions">
+        <button (click)="callLead()">
+        <!--  <mat-icon>phone</mat-icon>-->
+          <img src="images/privyr/leadinfo/phone.png"/>
+        </button>
+
+        <button (click)="openWhatsapp()">
+        <!-- <mat-icon>whatsapp</mat-icon>--> 
+         <img src="images/privyr/leadinfo/watsapp (2).png"/>
+        </button>
+
+        <button>
+         <!-- <mat-icon>chat</mat-icon>-->
+          <img src="images/privyr/leadinfo/message.png"/>
+        </button>
+      </div>
+    </div>
+
+    <!-- Last Activity -->
+    <div class="activity-row">
+      <mat-icon>schedule</mat-icon>
+      <span>Last Activity</span>
+
+      <div class="divider"></div>
+
+      <mat-icon>access_time</mat-icon>
+      <span>{{ currentLead.lastActivity }}</span>
+    </div>
+    <!-- 🔥 Light Effect -->
+  </div>
+  
+<div class="glow-divider">
+  <div class="glow-line"></div>
+</div>
+
+  <!-- SCORE SECTION -->
+  <div class="score-section">
+
+    <button class="nav-btn" (click)="goPrevious()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <div class="score-meter">
+      <svg viewBox="0 0 200 120">
+        <!-- Background Arc -->
+        <path
+          d="M20 100 A80 80 0 0 1 180 100"
+          class="bg-arc"
+        ></path>
+
+        <!-- Dynamic Score Arc -->
+        <path
+          d="M20 100 A80 80 0 0 1 180 100"
+          class="progress-arc"
+          [attr.stroke-dasharray]="circumference"
+          [attr.stroke-dashoffset]="dashOffset"
+        ></path>
+      </svg>
+
+      <div class="score-text">
+        <h1>{{ currentLead.score }}</h1>
+        <span class="score-label" [ngClass]="scoreLevel">
+          {{ scoreLevel }}
+        </span>
+      </div>
+    </div>
+
+    <button class="nav-btn" (click)="goNext()">
+      <mat-icon >chevron_right</mat-icon>
+    </button>
+
+  </div>
+  <div class="container">
+
+  <h2 class="title">Lead Properties</h2>
+
+  <div class="card">
+
+    <div class="property-row" *ngFor="let item of leadProperties">
+
+      <div class="left-section">
+        <div class="icon-box" [ngStyle]="{background: item.iconBg}">
+         
+          <div *ngIf="item.img === ''">
+          <mat-icon >{{ item.icon }}</mat-icon>
+          </div>
+          <div *ngIf="item.img != ''">
+            <img [src]="item.img" [class]="item.class" />
+          </div>
+        </div>
+
+        <div class="details">
+          <span class="label">{{ item.label }}</span>
+
+          <span 
+            class="value" 
+            [ngClass]="{'status-badge': item.type === 'status'}">
+            {{ item.value }}
+          </span>
+        </div>
+      </div>
+
+      <mat-icon class="arrow">chevron_right</mat-icon>
+
+    </div>
+
+  </div>
+
+  <!-- Buttons -->
+  <div class="button-row">
+
+    <button class="add-task" (click)="addTask()">
+      <mat-icon>add</mat-icon>
+      Add Task
+    </button>
+
+    <div class="action-wrapper">
+      <button class="lead-actions" (click)="toggleActions()">
+        <mat-icon>edit</mat-icon>
+        Lead Actions
+        <mat-icon class="down">expand_more</mat-icon>
+      </button>
+
+      <div class="dropdown" *ngIf="showActions">
+        <div 
+          class="dropdown-item"
+          *ngFor="let action of leadActions"
+          (click)="performAction(action)">
+          {{ action }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<style>
+    .lead-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 20px auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* TOP BLUE SECTION */
+.top-section {
+  background: linear-gradient(135deg, #1d5fd0, #00bcd4);
+  padding: 20px;
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  width:1
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  background: #5c6bc0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  position: relative;
+}
+.lead-id{
+  margin-top:0;
+}
+.online-dot {
+  width: 14px;
+  height: 14px;
+  background: #4caf50;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: 2px solid white;
+}
+
+.lead-info {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-badge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  background: white;
+  color: #1d5fd0;
+}
+
+.actions button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.contact-box {
+  margin-top: 15px;
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+.mobile img{
+  height: 20px;
+  width:20px}
+.contact-actions img {
+  width:30px;
+  height:30px;
+}
+.contact-actions button {
+  background: #f1f1f1;
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.activity-row {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.9;
+}
+
+.divider {
+  flex: 1;
+}
+
+/* Wrapper to center the glow */
+.glow-divider {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  z-index: 2;
+}
+
+/* Main glowing line */
+.glow-line {
+  margin-top: 10px;
+  width: 120px;
+  height: 6px;
+  border-radius: 50px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00ffb3,
+    #00e5ff,
+    #00ffb3,
+    transparent
+  );
+
+  box-shadow:
+    0 0 8px #00ffb3,
+    0 0 16px #00ffb3,
+    0 0 24px #00e5ff;
+
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Animation */
+@keyframes glowPulse {
+  0% {
+    opacity: 0.6;
+    transform: scaleX(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1.1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scaleX(0.9);
+  }
+}
+
+
+/* SCORE SECTION */
+.score-section {
+  margin-top: 20px;
+  background: #f5f6fa;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-btn {
+  background: #e0e0e0;
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.score-meter {
+  position: relative;
+  text-align: center;
+}
+
+svg {
+  width: 200px;
+  height: 120px;
+}
+
+.bg-arc {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 12;
+}
+
+.progress-arc {
+  fill: none;
+  stroke: #1d5fd0;
+  stroke-width: 12;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.score-text {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  right: 0;
+}
+
+.score-text h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.score-label {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.score-label.low {
+  background: #ffcccc;
+  color: #c62828;
+}
+
+.score-label.medium {
+  background: #ffe082;
+  color: #f57c00;
+}
+
+.score-label.high {
+  background: #c8e6c9;
+  color: #2e7d32;
+}
+.container {
+  padding: 16px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.property-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.property-row:last-child {
+  border-bottom: none;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.icon-box mat-icon {
+  font-size: 22px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 13px;
+  color: #777;
+}
+
+.value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+.status-badge {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  width: fit-content;
+}
+
+.arrow {
+  color: #aaa;
+}
+
+/* Buttons */
+
+.button-row {
+  margin-top: 16px;
+  display: flex;
+  gap: 14px;
+}
+
+.add-task {
+  flex: 1;
+  padding: 12px;
+  border-radius: 30px;
+  border: none;
+  background: #f4f6f9;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.lead-actions {
+  flex: 1;
+  padding: 12px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(135deg, #0f4c81, #1976d2);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+}
+
+.action-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.dropdown {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background: #fff;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.dropdown-item {
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background: #f4f6f9;
+}
+
+.watsappClass {
+  height: 40px;
+  width: 40px;
+}
+.span-lable{
+  font-size: 20px;
+  font-family: 300;
+}
+.span-value{
+  font-size: 10px;
+  font-weight:100
+}
+</style>

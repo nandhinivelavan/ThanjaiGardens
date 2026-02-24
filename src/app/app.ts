@@ -11,11 +11,12 @@ import { Privyrlead } from "./privyrlead/privyrlead";
 import { MatIconModule } from '@angular/material/icon';
 import { Capturelead } from "./capturelead/capturelead";
 import { Dashboard } from './dashboard/dashboard';
+import { Leadinfo } from './leadinfo/leadinfo';
 
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, MatIconModule, Dashboard],
+  imports: [FormsModule, MatIconModule, Leadinfo],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
