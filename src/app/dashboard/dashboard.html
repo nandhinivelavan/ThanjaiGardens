@@ -1,0 +1,587 @@
+<div class="dashboard">
+
+
+    <div class="top-card">
+        <img class="gradient-image" src="/images/privyr/dashboard/gradientimage.jpg">
+        <div class="total-leads">
+            <h3>Total Leads</h3>
+            <h1>484</h1>
+            <p>
+                <span class="growth"><img class="arrow-img" src="/images/arrow.png"> 12%</span>
+                vs last week
+            </p>
+        </div>
+        <img src="./images/privyr/dashboard/group-user.png" alt="User Icon" class="icon-circle">
+    </div>
+
+    
+           <div class="summary-wrapper">
+
+  <div class="summary-card blue">
+    <img class="calenderIcon" src="/images/privyr/dashboard/today.png"/>
+       <div class="top-line blue-line"></div>
+     
+     
+    <div class="card-content">
+        <div class="top-line blue-line"></div>
+      <p class="title">Today's Leads</p>
+      <h2 class="count">{{ todaysLeads }}</h2>
+    </div>
+
+    <div class="bottom-line blue-line"></div>
+  </div>
+
+
+  <div class="summary-card orange">
+     <img class="calenderIcon" src="/images/privyr/dashboard/today2.png"/>
+      <div class="top-line orange-line"></div>
+    <div class="card-content">
+      <p class="title">Untouched</p>
+      <h2 class="count ">{{ untouchedLeads }}</h2>
+    </div>
+    <div class="bottom-line orange-line"></div>
+  </div>
+
+
+  <div class="summary-card green">
+    <img class="calenderIcon" src="/images/privyr/dashboard/phonebook.png"/>
+    <div class="top-line green-line"></div>
+   
+
+    <div class="card-content">
+      <p class="title">Assigned</p>
+      <h2 class="count ">{{ assignedLeads }}</h2>
+    </div>
+
+    <div class="bottom-line green-line"></div>
+  </div>
+
+</div>
+
+<div class="dots">
+  <span class="dot active"></span>
+  <span class="dot"></span>
+</div>
+
+<!-- pagination dots 
+            <h4>Assigned</h4>
+            <h2>{{ assignedLeads }}</h2>
+            
+             <img class="card-img" src="/images/privyr/dashboard/today.png">
+              <img class="card-img" src="/images/privyr/dashboard/untoched.png">
+           -->
+        </div>
+
+    
+
+    <div class="leads-title">
+        <h2>Leads</h2>
+        <input type="button" value="View All" class="view-all-btn">
+    </div>
+
+    <div class="search-section">
+        <input type="text" placeholder="Search leads..." [(ngModel)]="searchText" (input)="applyFilters()" />
+
+        <button class="search-btn">Search</button>
+        <button class="refresh-btn" (click)="refresh()">Refresh</button>
+    </div>
+    <div class="filter-wrapper">
+        <div class="filterHeader">
+            <div><img class="filterIcon" src="images/privyr/dashboard/filter.png" />
+                <span>Filters</span>
+            </div>
+            <img class="upOrDownArrow" src="/images/privyr/dashboard/upArrowIcon.jpg" />
+        </div>
+        <div class="filters">
+            <div class="leadsStatus">
+                <div>
+                    Leads Status
+                </div>
+                <select [(ngModel)]="selectedStatus" (change)="applyFilters()">
+                    <option value="All">All Status</option>
+                    <option value="New">New</option>
+                    <option value="Assigned">Assigned</option>
+                    <option value="Untouched">Untouched</option>
+                </select>
+            </div>
+
+            <div class="dateRange">
+                <div>
+                    Date Range
+                </div>
+
+                <input type="date" id="native-date" (change)="applyFilters()" [(ngModel)]="selectedDate" name="selectedDate">
+
+            </div>
+
+        </div>
+    </div>
+
+        <div class="leads-list">
+
+        <div class="lead-card" *ngFor="let lead of filteredLeads">
+
+            <div class="avatar">
+                {{ lead.name.charAt(0) }}
+            </div>
+
+            <div class="lead-info">
+                <h4>{{ lead.name }}</h4>
+                <p>{{ lead.status }} Lead</p>
+            </div>
+
+            <div class="lead-meta">
+                <span class="status" [ngClass]="{
+                'assigned': lead.status === 'Assigned',
+                'new': lead.status === 'New',
+                'untouched': lead.status === 'Untouched'
+              }">
+                    {{ lead.status }}
+                </span>
+                <small>{{ lead.time }}</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+<style>
+
+.filter-wrapper {
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    display: block;
+    height: auto;
+}
+.filterHeader {
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin-top: 10px;
+ justify-content: space-between;
+ align-items: center;
+}
+.filterHeader span {
+font-size: 14px;
+font-weight: 900;
+color: black;
+margin-left: 10px;
+position: relative;
+bottom: 10px;
+}
+.filterIcon {
+    height: 25px;
+    width: 25px;
+    left: 20px;
+    top: 10px;
+margin-left:15px;   
+margin-top:10px
+}
+.upOrDownArrow {
+    height: 15px;
+    width: 15px;
+    top: 10px;
+    margin-right:10px;
+    margin-top:10px;
+}
+
+.filters {
+display:flex;
+    margin-top: 5px;
+
+}
+
+.card-img{
+height: 30px;
+width:30px;
+margin-top: -200px;
+}
+.arrow-img{
+    width: 10px;
+    height:10px;
+    font-weight: 400;
+}
+
+.leadsStatus{
+font-size: 18px;    
+display: block;
+width:50%;
+margin-left: 15px;
+}
+
+.leadsStatus div {
+    
+    width: 100%;
+    font-weight: 900;
+}
+.leadsStatus select {
+margin-top:10px;
+width: 100%;
+margin-bottom: 10px;
+}
+
+     
+
+
+.dateRange {
+    font-size: 18px;
+    width:50%;
+    display: block;
+    margin-left: 15px;
+}
+
+.dateRange div {
+    width: 100%;
+    font-weight: 900;
+}
+.dateRange input {
+    width: 95%;
+    margin-top:10px;
+    height: 30px;
+    border-radius: 10px;
+box-shadow: #ccc;
+border-color:#ffe8cc;
+margin-bottom: 10px;
+}
+
+.view-all-btn{
+    background-color: #d6e4ff;
+    border-radius: 10px;
+    height: 20px;
+    position: relative;
+    right:20px;
+    margin-left:20px;
+    margin-top: 25px;;
+}
+
+.leads-title {
+    display: flex;
+    justify-content: space-between;
+    width:100%
+}
+
+.leads-title h2 {
+    position: relative;
+    left: 10px;
+    color: black;
+    font-weight: 800px;
+    margin-right: 50px;
+    margin-top: 25px;
+}
+
+
+.top-card {
+  position: relative;
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+
+.top-card::before {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: -50px;
+  width: 100%;
+  height: 150px;
+  background: radial-gradient(circle at 50% 50%,
+              rgba(255,255,255,0.25) 0%,
+              rgba(255,255,255,0.15) 40%,
+              transparent 70%);
+  transform: rotate(-5deg);
+}
+
+.gradient-image {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    border-radius: 15px;
+    opacity: 0.8;
+    object-fit: cover;
+    border: 4px solid rgba(255,255,255,0.3);
+}
+
+
+.top-card::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 180px;
+  height: 180px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  filter: blur(10px);
+}
+
+.top-card h3 {
+  font-size: 18px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.top-card h1 {
+  font-size: 48px;
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+.growth {
+  background: #e6f9f0;
+  color: #00c853;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.total-leads {
+  position: absolute;
+  z-index: 1;
+    left: 50px;
+}
+
+
+.icon-circle {
+    border-radius: 50%;
+    display: flex;
+    position: absolute;
+    height:100px;
+    width:100px;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 4px solid rgba(255,255,255,0.3);
+    left: auto;
+}
+
+.dashboard {
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+}
+
+.summary-wrapper {
+  display: flex;
+ 
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 40px;
+  margin-bottom: 5px;
+}
+
+/* ===== CARD ===== */
+.summary-card {
+  position: relative;
+  flex: 1;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px 15px 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  height: 90px;
+  width: 300px;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ===== FLOATING ICON BADGE ===== */
+.icon-badge {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+.calenderIcon{
+    position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translate(-50%,-20%);
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+.material-icons {
+  font-size: 22px;
+}
+
+
+/* Badge Colors */
+.blue-bg { background: #1e5eff; }
+.orange-bg { background: #ff9800; }
+.green-bg { background: #00c853; }
+
+/* ===== CONTENT ===== */
+.title {
+  font-size: 15px;
+  color: #0c0c0c;
+  margin-top: 15px;
+}
+
+.count {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 5px;
+  color: #222;
+}
+
+.count { color: #100f0e; }
+
+
+/* ===== BOTTOM LINE ===== */
+.bottom-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  border-radius: 5px;
+}
+.top-line{
+    position: absolute;
+    top: 0;
+    margin-top: 2px;
+   transform:translatez(-50%);
+    width:78%;
+    height: 1px;
+  border-radius: 5px;
+}
+
+.blue-line { background: #1e5eff; }
+.orange-line { background: #ff9800; }
+.green-line { background: #00c853; }
+
+/* ===== DOTS ===== */
+.dots {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  margin-bottom: 0;
+}
+
+.dot.active {
+  background: #1e5eff;
+  width: 20px;
+  border-radius: 10px;
+}
+
+
+.search-section {
+  display: block;
+}
+
+.search-section input {
+width: 100%;
+  border-radius: 20px;
+  height: 30px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.search-btn {
+  background: #1e4dd8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  width:50%;
+}
+
+.refresh-btn {
+  background: purple;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  width:50%
+}
+
+.filters {
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+}
+
+.filters select {
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.leads-list {
+  margin-top: 20px;
+}
+
+.lead-card {
+  background: white;
+  padding: 5px;
+  border-radius: 15px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  margin-top: 0;
+}
+
+.avatar {
+  background: #1e4dd8;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.lead-info {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.assigned { background: #d4f8e8; color: green; }
+.new { background: #d6e4ff; color: #1e4dd8; }
+.untouched { background: #ffe8cc; color: orange; }
+</style>

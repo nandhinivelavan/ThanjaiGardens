@@ -10,10 +10,12 @@ import { Privyrlead } from "./privyrlead/privyrlead";
 // import { PrivyrleadComponent } from "./privyrlead/privyrlead";
 import { MatIconModule } from '@angular/material/icon';
 import { Capturelead } from "./capturelead/capturelead";
+import { Dashboard } from './dashboard/dashboard';
+
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, MatIconModule, Privyrlead],
+  imports: [FormsModule, MatIconModule, Dashboard],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
